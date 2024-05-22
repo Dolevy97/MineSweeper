@@ -30,7 +30,7 @@ function createMat(size) {
                 minesAroundCount: 0,
                 isShown: false,
                 isMine: false,
-                isMarked: true
+                isMarked: false
             }
             mat[i][j] = cell
         }
@@ -40,9 +40,9 @@ function createMat(size) {
 }
 
 function generateMines(mat) {
-    mat[0][1] = MINE
-    mat[3][3] = MINE
-    mat[2][1] = MINE
+    mat[0][1].isMine = true
+    mat[3][3].isMine = true
+    mat[2][1].isMine = true
     // var mineCount = 0
     // while (mineCount < gLevel.MINES) {
     //     var randIIdx = getRandomInt(0, gLevel.SIZE)
@@ -61,7 +61,7 @@ function renderBoard(board) {
         for (var j = 0; j < board[0].length; j++) {
             const cell = board[i][j]
             const className = `cell cell-${i}-${j}`
-            if (cell === MINE) strHTML += `<td onclick="onClickCell(${i},${j},true)" class="${className}"></td>`
+            if (cell.isMine === true) strHTML += `<td onclick="onClickCell(${i},${j})" class="${className}"></td>`
             else strHTML += `<td onclick="onClickCell(${i},${j})" class="${className}"></td>`
         }
         strHTML += '</tr>'
@@ -70,8 +70,8 @@ function renderBoard(board) {
     elContainer.innerHTML = strHTML
 }
 
-function onClickCell(cellI, cellJ, isMine = false) {
-    if (isMine) {
+function onClickCell(cellI, cellJ) {
+    if (gBoard[cellI][cellJ].isMine === true) {
         ///Clicked Mine
         renderCell(cellI, cellJ, MINE)
     } else {
@@ -99,9 +99,7 @@ function setMinesNegsCount(cellI, cellJ) { // 7,0
         for (var j = cellJ - 1; j <= cellJ + 1; j++) {
             if (j < 0 || j >= gBoard[i].length) continue
             if (i === cellI && j === cellJ) continue
-            // if (gBoard[cellI][cellJ] === MINE) continue
-
-            if (gBoard[i][j] === MINE) minesAroundCount++
+            if (gBoard[i][j].isMine === true) minesAroundCount++
         }
     }
     return minesAroundCount
