@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(157, 210, 231);
+    font-family: 'Playfair Display','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+    font-size:50px;
+    text-shadow: 2px 2px 4px goldenrod;
+    text-align: center;
+}
+
+.game-container {
+    margin: auto;
+
+}
+
+.cell {
+    text-align:center;
+    font-size:30px;
+    background-color: white;
+    width: 70px;
+    height: 70px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    /* display:inline-block; */
+    margin:0px;
+    cursor:pointer;
+    box-shadow:inset 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.cell:hover {
+    background-color: antiquewhite;
+    transition: background-color 0.5s;
+}
+
+footer {
+    text-align:center;
+    margin:20px;
+    font-size:20px
+}
