@@ -1,17 +1,5 @@
 'use strict'
 
-function createMat(size) {
-    const mat = []
-    for (var i = 0; i < size; i++) {
-        const row = []
-        for (var j = 0; j < size; j++) {
-            row.push('')
-        }
-        mat.push(row)
-    }
-    return mat
-}
-
 function getRandomInt(min, max) {
     const minCeiled = Math.ceil(min);
     const maxFloored = Math.floor(max);
@@ -73,14 +61,16 @@ function makeId(length = 6) {
     return txt
 }
 
+function renderCell(locationI, locationJ, value) {
+    const elCell = document.querySelector(`.cell-${locationI}-${locationJ}`)
+    elCell.innerHTML = value
+}
+
 //timer - needs mins and secs class in index.html
 
 function setTime() {
-    var elMins = document.querySelector(`.mins`)
-    var elSecs = document.querySelector(`.secs`)
-    ++gTotalSeconds
-    elSecs.innerHTML = pad(gTotalSeconds % 60)
-    elMins.innerHTML = pad(parseInt(gTotalSeconds / 60))
+    ++gGame.totalSeconds
+    ELEMENTS.gElSecs.innerHTML = gGame.totalSeconds
 }
 
 function pad(val) {
