@@ -70,7 +70,7 @@ function renderCell(locationI, locationJ, value) {
 
 function setTime() {
     ++gGame.totalSeconds
-    ELEMENTS.gElSecs.innerHTML = gGame.totalSeconds
+    ELEMENTS.elSecs.innerHTML = gGame.totalSeconds
 }
 
 function pad(val) {

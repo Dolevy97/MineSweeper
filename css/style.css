@@ -55,53 +55,23 @@ h1 {
     max-width: 760px;
     height: auto;
     padding-bottom: 20px;
-    max-height: 1230px;
+    max-height: 1320px;
     margin: auto;
     border-radius: 3%;
     box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.5);
     transition: width 2s;
 }
 
-.leaderboard-header {
-    font-size: 1.5em;
-    text-align: center;
-    margin: 10px auto;
-}
-
-.leaderboard {
-    text-align: center;
-    border-collapse: collapse;
-    font-size: 1.5em;
-    margin: 5% auto;
-}
-
-.leaderboard tbody {
-    background-color: rgba(5, 20, 40, 0.5);
-    color: #faebd7;
-    width: auto;
-    padding: 2px 5px;
-    border-radius: 5px;
-    font-size: 22px;
-    line-height: 1.5;
-}
-
-
-.leaderboard td {
-    padding: 6px 5px;
-}
-
-.leaderboard tr:nth-of-type(even) {
-    background-color: rgba(250, 235, 215, 0.5);
-    color: #051428;
-}
-
 .difficulty-btn {
     margin: 10px;
+    border-radius:5px;
 }
+
 
 .game-container {
     margin: auto;
-
+    width: auto;
+    height: auto;
 }
 
 .smiley-btn {
@@ -111,6 +81,26 @@ h1 {
     font-size: 40px;
     cursor: pointer;
 }
+
+.first-of-row{
+    border-radius: 10px 0 0 0;
+}
+
+.last-of-row{
+    border-radius: 0 10px 0 0;
+}
+
+.first-of-col{
+    border-radius:0 0 0 10px;
+}
+
+.last-of-col {
+    border-radius:0 0 10px 0;
+}
+
+/* .cell:last-of-type {
+    border-radius: 0 0 0 10px;
+} */
 
 .cell {
     text-align: center;
@@ -162,6 +152,15 @@ hr {
     margin: 10px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     border-radius: 5px;
+    padding:px 4px;
+}
+
+.dark-btn {
+    background-color: #111111;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    color: rgb(203, 203, 203);
+    padding: 3px auto;
 }
 
 .dark-mode {
@@ -192,23 +191,37 @@ h3 .num-flagged {
     font-size: 42px;
 }
 
-@media screen and (max-width:550px) {
-    .container {
-        width: 360px;
-    }
-
-}
-
 h2 {
     font-size: 30px;
 }
 
 .heart-container {
-    width:120px;
-    margin:5px auto;
+    width: 120px;
+    margin: 5px auto;
 }
 
 .heart {
-    margin:3px auto;
+    margin: 3px auto;
     padding: 3px;
+}
+
+.safe-click-container {
+    margin: 3px auto;
+    line-height: 0;
+    padding-bottom: 5px;
+}
+
+.safe-click-container p {
+    font-size: 11px;
+}
+
+.exterminate-btn,
+.safe-click {
+    border-radius: 5px;
+    padding: 2px 4px;
+}
+
+.safe {
+    background-color: rgba(218, 165, 32, 0.6);
+    transition: 1s
 }
