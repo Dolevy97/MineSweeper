@@ -392,7 +392,7 @@ function updateLeaderboard() {
     if (savedTimes) SCORES = JSON.parse(savedTimes)
     var strHTML = ``
     for (var i = 0; i < SCORES.length; i++) {
-        strHTML += `<p>${i + 1}. ${SCORES[i].name}: ${SCORES[i].time} seconds (${gLevel.NAME})</p>`
+        strHTML += `<p>${i + 1}. ${SCORES[i].name}: ${SCORES[i].time} seconds (${SCORES[i].difficulty})</p>`
     }
     ELEMENTS.elLeaderboard.innerHTML = strHTML
 }
