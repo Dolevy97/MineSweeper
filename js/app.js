@@ -138,9 +138,9 @@ function renderBoard(board) {
             const cell = board[i][j]
             var className = `cell cell-${i}-${j}`
             if (i === 0 && j === 0) className += ' first-of-row'
-            if (i === 0 && j === gBoard.length-1) className += ' last-of-row'
-            if (i === board.length-1 && j === 0) className += ' first-of-col'
-            if (i === board.length-1 && j === board[0].length-1) className += ' last-of-col'
+            if (i === 0 && j === gBoard.length - 1) className += ' last-of-row'
+            if (i === board.length - 1 && j === 0) className += ' first-of-col'
+            if (i === board.length - 1 && j === board[0].length - 1) className += ' last-of-col'
             if (cell.isMine === true) strHTML += `<td style=${cellSize} dataI=${i} dataJ=${j} oncontextmenu="onCellMarked(event, this)" onclick="onClickCell(this,${i},${j})" class="${className}">${EMPTY}</td>`
             else strHTML += `<td style=${cellSize} dataI=${i} dataJ=${j} oncontextmenu="onCellMarked(event, this)" onclick="onClickCell(this,${i},${j})" class="${className}">${EMPTY}</td>`
         }
@@ -356,7 +356,7 @@ function gameOver() {
     } else {
         setTimeout(() => {
             ELEMENTS.elSmiley.innerHTML = gGame.isDarkMode ? '🪦' : '😭';
-        },100)
+        }, 100)
         console.log('You lose')
     }
     gGame.isOn = false
@@ -364,18 +364,28 @@ function gameOver() {
 
 function sortLeaderboard() {
     if (SCORES.length <= 1) return
-    for (var i = 0; i < SCORES.length; i++) { //10,2
-        if (SCORES[i] < SCORES[i + 1] && SCORES[i].difficulty === SCORES[i + 1].difficulty) {
-            var temp = SCORES[i + 1]
-            SCORES[i + 1] = SCORES[i]
-            SCORES[i] = temp
-            sortLeaderboard()
-        } else return
+    if (SCORES[1].time < SCORES[0].time) {
+        var tempPlayer = SCORES.splice(1, 1)[0]
+        SCORES.unshift(tempPlayer)
     }
-    // if (SCORES.length > 3) SCORES.pop()
+    if (!(SCORES.length <= 2)) {
+        if (SCORES[2].time < SCORES[1].time) {
+            var tempPlayer = SCORES[2]
+            SCORES[2] = SCORES[1]
+            SCORES[1] = tempPlayer
+            sortLeaderboard()
+        } else if (SCORES[2].time <= SCORES[1].time) {
+            var tempPlayer = SCORES[2]
+            SCORES[2] = SCORES[1]
+            SCORES[1] = tempPlayer
+        }
+    }
+    if (SCORES.length > 3) SCORES.pop()
     //After everything is sorted and there're only 3 score holders..
     updateLeaderboard()
 }
+
+
 
 function updateLeaderboard() {
     var savedTimes = localStorage.setItem('bestTimes', JSON.stringify(SCORES))
@@ -405,7 +415,7 @@ function onToggleDarkMode() {
 
 function onExterminate() {
     //remove 3 mines
-    if (gGame.isFirstClick) return
+    if (gGame.isFirstClick || !gGame.isOn) return
     var minesRemoved = 0
     var diff = (gLevel.MINES - gGame.shownMinesCount)
     var minesToRemove = (gLevel.NAME === 'easy') ? diff : 3;
@@ -443,6 +453,7 @@ function getSafeCells() {
 }
 
 function onSafeClick() {
+    if (!gGame.isOn) return
     getSafeCells()
     var randIdx = getRandomInt(0, safe.length - 1)
     var elCell = document.querySelector(`.cell-${safe[randIdx].i}-${safe[randIdx].j}`)
