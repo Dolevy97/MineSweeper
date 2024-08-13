@@ -2,7 +2,8 @@
 
 A classic Minesweeper game implemented in JavaScript, featuring both dark and light modes and multiple difficulty levels.
 
-![image](https://github.com/user-attachments/assets/a0e23ffa-f606-415f-a893-81e49165fc3b)
+![image](https://github.com/user-attachments/assets/41d7d03c-5302-482f-8edd-1bfe5a756a33)
+
 
 
 
