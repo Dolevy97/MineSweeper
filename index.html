@@ -9,35 +9,38 @@
 </head>
 
 <body onload="onInitGame()">
-    <div class="container">
-        <button class="dark-mode dark-mode-btn" onclick="onToggleDarkMode()">Dark/Light Mode</button>
-        <h1>Minesweeper</h1>
-        <div class="smiley-btn" onclick="onInitGame()">😊</div>
-        <button onclick="onChangeDifficulty('easy')" class="difficulty-btn">Easy</button><button
-            onclick="onChangeDifficulty('medium')" class="difficulty-btn">Normal</button><button class="difficulty-btn"
-            onclick="onChangeDifficulty('hard')">Hard</button>
-        <div class="heart-container"><img src="img/Heart.png" class="heart heart1"><img src="img/Heart.png" class="heart heart2"><img src="img/Heart.png" class="heart heart3"></div>
-        <h3><span class="flag-icon">🚩</span> <span class="num-flagged"></span></h3>
-        <div class="safe-click-container">
-            <button onclick="onSafeClick()" class="safe-click">Safe Click</button>
-            <p><span class="available-safe-clicks">3</span> clicks available</p>
+    <main>
+        <div class="container">
+            <button class="dark-mode dark-mode-btn" onclick="onToggleDarkMode()">Dark/Light Mode</button>
+            <h1>Minesweeper</h1>
+            <div class="smiley-btn" onclick="onInitGame()">😊</div>
+            <button onclick="onChangeDifficulty('easy')" class="difficulty-btn">Easy</button><button
+                onclick="onChangeDifficulty('medium')" class="difficulty-btn">Normal</button><button
+                class="difficulty-btn" onclick="onChangeDifficulty('hard')">Hard</button>
+            <div class="heart-container"><img src="img/Heart.png" class="heart heart1"><img src="img/Heart.png"
+                    class="heart heart2"><img src="img/Heart.png" class="heart heart3"></div>
+            <h3><span class="flag-icon">🚩</span> <span class="num-flagged"></span></h3>
+            <div class="safe-click-container">
+                <button onclick="onSafeClick()" class="safe-click">Safe Click</button>
+                <p><span class="available-safe-clicks">3</span> clicks available</p>
+            </div>
+            <div class="exterminate-btn-container">
+                <button class="exterminate-btn" disabled onclick="onExterminate()">Exterminate</button>
+            </div>
+            <h3 class="timer">Time: <span class="secs">0</span></h3>
+            <div hidden class="hints"><span onclick="onUseHint(this)" class="hint hint1">💡</span>
+                <span onclick="onUseHint(this)" class="hint hint2">💡</span>
+                <span onclick="onUseHint(this)" class="hint hint3">💡</span>
+            </div>
+            <table class="game-container">
+            </table>
         </div>
-        <div class="exterminate-btn-container">
-            <button class="exterminate-btn" disabled onclick="onExterminate()">Exterminate</button>
-        </div>
-        <h3 class="timer">Time: <span class="secs">0</span></h3>
-        <div hidden class="hints"><span onclick="onUseHint(this)" class="hint hint1">💡</span>
-            <span onclick="onUseHint(this)" class="hint hint2">💡</span>
-            <span onclick="onUseHint(this)" class="hint hint3">💡</span></div>
-        <table class="game-container">
-        </table>
-    </div>
-    <h2>Leaderboard: (Until refresh for now)</h2>
-    <div class="leaderboard">
+        <h2>Leaderboard:</h2>
+        <div class="leaderboard">
 
-    </div>
-    <hr>
-    <footer>Made by Dolev Levy - <i>Coding Academy</i></footer>
+        </div>
+    </main>
+    <footer><hr>Made by Dolev Levy - <i>Coding Academy</i></footer>
     <script src="js/utils.js"></script>
     <script src="js/app.js"></script>
 </body>

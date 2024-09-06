@@ -78,3 +78,13 @@ function pad(val) {
     if (str.length < 2) return "0" + str
     else return str
 }
+
+function saveToStorage(key, val) {
+    const strVal = JSON.stringify(val)
+	localStorage.setItem(key, strVal)
+}
+
+function loadFromStorage(key) {
+	var val = localStorage.getItem(key)
+	return JSON.parse(val)
+}

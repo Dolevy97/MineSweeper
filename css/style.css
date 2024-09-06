@@ -16,6 +16,12 @@ body {
     text-align: center;
     transition: background-color 0.2s, background-image 0.2s;
     text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.3), -1px -1px 3px rgba(255, 255, 255, 0.3);
+    height: 100vh;
+    margin: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 h1 {
@@ -65,6 +71,8 @@ h1 {
 .difficulty-btn {
     margin: 10px;
     border-radius:5px;
+    cursor: pointer;
+
 }
 
 
@@ -152,7 +160,8 @@ hr {
     margin: 10px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     border-radius: 5px;
-    padding:px 4px;
+    padding:4px;
+    cursor: pointer;
 }
 
 .dark-btn {
@@ -161,6 +170,8 @@ hr {
     border-radius: 5px;
     color: rgb(203, 203, 203);
     padding: 3px auto;
+    cursor: pointer;
+
 }
 
 .dark-mode {
@@ -215,10 +226,12 @@ h2 {
     font-size: 11px;
 }
 
-.exterminate-btn,
-.safe-click {
+.exterminate-btn:not(:disabled),
+.safe-click:not(:disabled) {
     border-radius: 5px;
     padding: 2px 4px;
+    cursor: pointer;
+
 }
 
 .safe {

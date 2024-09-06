@@ -2,7 +2,6 @@ const EMPTY = ' '
 const NONE = '0'
 const MINE = '💣'
 const FLAG = '🚩'
-const SCORES = []
 const ELEMENTS = {
     elHearts: document.querySelectorAll('.heart'),
     elSmiley: document.querySelector('.smiley-btn'),
@@ -44,6 +43,7 @@ function onInitGame() {
     resetGame()
     gBoard = createMat(gLevel.SIZE)
     renderBoard(gBoard)
+    loadLeaderboard(loadFromStorage('leaderboard'))
 }
 
 function resetGame() {
@@ -108,15 +108,6 @@ function createMat(size) {
 }
 
 function generateMines(mat) {
-    // if (!mat[0][0].isMine && !mat[0][0].isShown) {
-    //     mat[0][0].isMine = true
-    //     mat[0][0].currContent = MINE
-    // }
-    // if (!mat[3][3].isMine && !mat[3][3].isShown) {
-    //     mat[3][3].isMine = true
-    //     mat[3][3].currContent = MINE
-    // }
-
     var mineCount = 0
     while (mineCount < gLevel.MINES) {
         var randIIdx = getRandomInt(0, gLevel.SIZE)
@@ -346,12 +337,13 @@ function checkVictory() {
 function gameOver() {
     clearInterval(gTimerInterval)
     if (checkVictory()) {
-        var name = prompt('Enter your name')
-        // var name = 'Dolev'
+        var name = prompt('Enter your name:')
         var newPlayer = { name, time: gGame.totalSeconds, difficulty: gLevel.NAME }
-        SCORES.unshift(newPlayer)
-        updateLeaderboard()
+        var currScores = loadFromStorage('leaderboard') || []
+        currScores.push(newPlayer)
+        saveToStorage('leaderboard', currScores)
         sortLeaderboard()
+        loadLeaderboard(currScores)
         ELEMENTS.elSmiley.innerHTML = gGame.isDarkMode ? '👹' : '😎';
     } else {
         setTimeout(() => {
@@ -363,38 +355,21 @@ function gameOver() {
 }
 
 function sortLeaderboard() {
-    if (SCORES.length <= 1) return
-    if (SCORES[1].time < SCORES[0].time) {
-        var tempPlayer = SCORES.splice(1, 1)[0]
-        SCORES.unshift(tempPlayer)
-    }
-    if (!(SCORES.length <= 2)) {
-        if (SCORES[2].time < SCORES[1].time) {
-            var tempPlayer = SCORES[2]
-            SCORES[2] = SCORES[1]
-            SCORES[1] = tempPlayer
-            sortLeaderboard()
-        } else if (SCORES[2].time <= SCORES[1].time) {
-            var tempPlayer = SCORES[2]
-            SCORES[2] = SCORES[1]
-            SCORES[1] = tempPlayer
-        }
-    }
-    if (SCORES.length > 3) SCORES.pop()
-    //After everything is sorted and there're only 3 score holders..
-    updateLeaderboard()
+    var scores = loadFromStorage('leaderboard')
+    if (scores.length <= 1) return
+    scores.sort((a, b) => a.time - b.time)
+    saveToStorage('leaderboard',scores)
 }
 
-
-
-function updateLeaderboard() {
-    var savedTimes = localStorage.setItem('bestTimes', JSON.stringify(SCORES))
-    if (savedTimes) SCORES = JSON.parse(savedTimes)
-    var strHTML = ``
-    for (var i = 0; i < SCORES.length; i++) {
-        strHTML += `<p>${i + 1}. ${SCORES[i].name}: ${SCORES[i].time} seconds (${SCORES[i].difficulty})</p>`
+function loadLeaderboard(scores) {
+    if (scores) {
+        sortLeaderboard()
+        var strHTML = ``
+        for (var i = 0; i < scores.length; i++) {
+            strHTML += `<p>${i + 1}. ${scores[i].name}: ${scores[i].time} seconds (${scores[i].difficulty})</p>`
+        }
+        ELEMENTS.elLeaderboard.innerHTML = strHTML
     }
-    ELEMENTS.elLeaderboard.innerHTML = strHTML
 }
 
 function onToggleDarkMode() {
@@ -414,7 +389,6 @@ function onToggleDarkMode() {
 }
 
 function onExterminate() {
-    //remove 3 mines
     if (gGame.isFirstClick || !gGame.isOn) return
     var minesRemoved = 0
     var diff = (gLevel.MINES - gGame.shownMinesCount)
@@ -464,7 +438,6 @@ function onSafeClick() {
     gGame.safeClicks--
     ELEMENTS.elSafeClick.innerHTML = gGame.safeClicks
     if (!gGame.safeClicks) ELEMENTS.elSafeBtn.disabled = true
-    console.log('gGame.safeClicks:', gGame.safeClicks);
 }
 
 function noneHTML() {
